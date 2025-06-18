@@ -26,7 +26,7 @@ import { DatosGuitarra } from '../interfaces/DatosGuitarra';
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="guitar in carrito" :key="guitar.id">
+                    <tr v-for="guitar in guitarP" :key="guitar.id">
                       <td>
                         <img
                           class="img-fluid"
@@ -109,13 +109,20 @@ const props = defineProps({
   },
 });
 
+interface carritos {
+  id: number;
+  nombre: string;
+  precio: number;
+  imagen: string;
+  descripcion: string;
+  cantidad: number;
+}
+const carrit = <carritos[]>props.carrito;
+const guitarP = <carritos[]>props.guitarraPrincipal;
 defineEmits(['incrementar-cantidad', 'decrementar-cantidad', 'eliminar-guitarra']);
 
 const totalPagar = computed(() => {
-  return props.carrito.reduce(
-    (total: number, carrito) => total + carrito.cantidad * carrito.precio,
-    0,
-  );
+  return carrit.reduce((total: number, carrit) => total + carrit.cantidad * carrit.precio, 0);
 });
 </script>
 
